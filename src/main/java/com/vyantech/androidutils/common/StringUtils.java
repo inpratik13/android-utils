@@ -31,4 +31,8 @@ public class StringUtils {
 
         return num.toString();
     }
+
+    public static String blankIfNull(String str){
+        return str == null ? "" : str;
+    }
 }

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.PackageInfo;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
@@ -12,6 +14,8 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+
+import java.util.Locale;
 
 public class AndroidUtils {
 	
@@ -168,4 +172,19 @@ public class AndroidUtils {
 			imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 		}
 	}
+
+    /**
+     * Requires android:configChanges="locale" in androidManifest.xml file.<br/>
+     * Also restart activity to apply locale changes.
+     *
+     * @param context
+     * @param locale
+     */
+	public static void changeAppLocale(Context context, Locale locale){
+        Resources res = context.getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = locale;
+        res.updateConfiguration(conf, dm);
+    }
 }
