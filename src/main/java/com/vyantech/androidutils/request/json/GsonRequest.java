@@ -76,7 +76,7 @@ public class GsonRequest<C> extends Request<Response<C>> {
             }
 
             Response<C> res
-                    = new Response<C>(obj, response.statusCode);
+                    = new Response<C>(obj, response.statusCode, readResponseHeaders(response));
 
             return com.android.volley.Response.success(res, HttpHeaderParser.parseCacheHeaders(response));
 
@@ -87,6 +87,10 @@ public class GsonRequest<C> extends Request<Response<C>> {
             return com.android.volley.Response.error(new ParseError(e));
 
         }
+    }
+
+    private static Map<String, String> readResponseHeaders(NetworkResponse response){
+        return response.headers;
     }
 
     private static class ErrorListener implements com.android.volley.Response.ErrorListener {

@@ -1,5 +1,8 @@
 package com.vyantech.androidutils.request.json;
 
+import java.util.Collections;
+import java.util.Map;
+
 /**
  * Created by patrix on 17/10/17.
  */
@@ -18,10 +21,19 @@ public class Response<T> {
     private final T data;
     private final int code;
     private final ResponseError error;
+    private Map<String, String> headers;
 
     Response(T data, int statuscode) {
         this.data = data;
         this.code = statuscode;
+        headers = null;
+        this.error = null;
+    }
+
+    Response(T data, int statuscode, Map<String, String> headers) {
+        this.data = data;
+        this.code = statuscode;
+        this.headers = Collections.unmodifiableMap(headers);;
         this.error = null;
     }
 
@@ -41,5 +53,9 @@ public class Response<T> {
 
     public ResponseError getError() {
         return error;
+    }
+
+    public Map<String, String> getHeaders(){
+        return headers;
     }
 }
